@@ -2,9 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QWidget>
+class QString;
 class QPushButton;
 class QLCDNumber;
 class QSignalMapper;
+
 
 class Calculator : public QWidget
 {
@@ -17,13 +19,12 @@ private:
     void createWidgets();
 
 private:
+    static const int size = 12;
+    const QString buttonLabels[size];
     QSignalMapper *mMapper;
     int mSum;
     int mNextNumber;
-    QPushButton *pushButtons[10];
-    QPushButton *pushButtonPlus;
-    QPushButton *pushButtonC;
-
+    QPushButton *pushButtons[size];
     QLCDNumber *lcdNumber;
 
 private slots:
