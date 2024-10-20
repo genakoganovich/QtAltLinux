@@ -19,8 +19,9 @@ private:
     void createWidgets();
 
 private:
-    static const int size = 12;
+    static const int size = 16;
     const QString buttonLabels[size];
+    static const QString op;
     QSignalMapper *mMapper;
     int mSum;
     int mNextNumber;
@@ -30,6 +31,6 @@ private:
 private slots:
     void slotClear();
     void slotButtonPressed(int pNum);
-    void slotPlusEqual();
+    void slotOperator(const QString& s);
 };
 #endif // MAINWINDOW_H
