@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "iconizedlineedit.h"
 #include <QVBoxLayout>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget *parent)
     : QWidget(parent)
@@ -17,6 +18,8 @@ void MainWindow::createUi()
     iconizedLineEdit->setPlaceholderText("Click to open File");
     iconizedLineEdit->setIconPixmap(QPixmap(":/resources/Folder.png"));
     iconizedLineEdit->setIconVisibility(IconizedLineEdit::IconAlwaysVisible);
+    iconizedLineEdit->setIconClickable(true);
+    connect(iconizedLineEdit, SIGNAL(iconPressed()), this, SLOT(slotChooseFile()), Qt::UniqueConnection);
     lMainLayout->addWidget(iconizedLineEdit);
 
     iconizedLineEdit_2 = new IconizedLineEdit;
@@ -41,5 +44,13 @@ void MainWindow::createUi()
     iconizedLineEdit_5->setPlaceholderText("Clearable");
     iconizedLineEdit_5->setIconPixmap(QPixmap(":/resources/X.png"));
     iconizedLineEdit_5->setIconVisibility(IconizedLineEdit::IconVisibleOnTextPresence);
+    iconizedLineEdit_5->setIconClickable(true);
+    connect(iconizedLineEdit_5, SIGNAL(iconPressed()), iconizedLineEdit_5, SLOT(clear()), Qt::UniqueConnection);
     lMainLayout->addWidget(iconizedLineEdit_5);
+}
+
+void MainWindow::slotChooseFile()
+{
+    QString lFileName = QFileDialog::getOpenFileName(this, "open File");
+    iconizedLineEdit->setText(lFileName);
 }

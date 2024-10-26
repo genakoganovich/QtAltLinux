@@ -21,17 +21,20 @@ public:
     void setIconPixmap(const QPixmap &pPixmap);
     void setIconTooltip(const QString &pToolTip);
     void setIconVisibility(IconVisibilityMode pIconVisibilityMode);
+    void setIconClickable(bool pIsIconClickable);
+signals:
+    void iconPressed();
+private slots:
+    void slotTextChanged(const QString &pText);
 private:
     QLabel *mIconLabel;
-private slots :
-    void slotTextChanged(const QString &pText);
-private :
+    IconVisibilityMode mIconVisibilityMode;
+    bool mIsIconClickable;
     void updateIconPositionAndsize();
     void setIconVisible(bool pisVisible);
-private :
-    IconVisibilityMode mIconVisibilityMode;
 protected:
     void resizeEvent(QResizeEvent *pEvent) override;
+    bool eventFilter(QObject *pobject, QEvent *pEvent);
 };
 
 #endif // ICONIZEDLINEEDIT_H

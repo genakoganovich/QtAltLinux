@@ -18,5 +18,7 @@ private:
     IconizedLineEdit *iconizedLineEdit_3;
     IconizedLineEdit *iconizedLineEdit_4;
     IconizedLineEdit *iconizedLineEdit_5;
+private slots:
+    void slotChooseFile();
 };
 #endif // MAINWINDOW_H

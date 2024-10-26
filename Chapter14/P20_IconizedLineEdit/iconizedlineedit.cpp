@@ -1,6 +1,7 @@
 #include "iconizedlineedit.h"
 #include <QStyle>
 #include <QLabel>
+#include <QEvent>
 
 IconizedLineEdit::IconizedLineEdit(QWidget *parent) : QLineEdit (parent), mIconVisibilityMode(IconAlwaysVisible)
 {
@@ -40,6 +41,21 @@ void IconizedLineEdit::setIconVisibility(IconVisibilityMode pIconVisibilityMode)
     default :
         setIconVisible(false);
         break;
+    }
+}
+
+//Установить режим реакции на нажатие мышкой на пиктограмму
+void IconizedLineEdit::setIconClickable(bool pIsIconClickable)
+{
+    mIsIconClickable = pIsIconClickable;
+    //Устанавливаем вид курсора при наведении на метку с пиктограммой
+    if (mIsIconClickable)
+    {
+        mIconLabel->setCursor(Qt::PointingHandCursor);
+    }
+    else
+    {
+        mIconLabel->setCursor(Qt::ArrowCursor);
     }
 }
 
@@ -85,4 +101,17 @@ void IconizedLineEdit::resizeEvent(QResizeEvent *pEvent)
     //Если изменение размера состоялось, обновить позицию и размер пиктограммы
     updateIconPositionAndsize();
     QWidget::resizeEvent(pEvent);
+}
+
+bool IconizedLineEdit::eventFilter(QObject *pobject, QEvent *pEvent)
+{
+    if (mIsIconClickable)
+    {
+        if ((pobject == mIconLabel) && (pEvent->type() == QEvent::MouseButtonPress))
+        {
+            emit iconPressed();
+            return true;
+        }
+    }
+    return false;
 }
