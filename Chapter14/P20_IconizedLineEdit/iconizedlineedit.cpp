@@ -6,6 +6,7 @@
 IconizedLineEdit::IconizedLineEdit(QWidget *parent) : QLineEdit (parent), mIconVisibilityMode(IconAlwaysVisible)
 {
     mIconLabel = new QLabel(this);
+    mIconLabel->installEventFilter(this);
     connect(this, SIGNAL(textChanged(QString)), this, SLOT(slotTextChanged(QString)), Qt::UniqueConnection);
 }
 
