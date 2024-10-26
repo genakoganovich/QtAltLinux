@@ -49,7 +49,7 @@ void IconizedLineEdit::updateIconPositionAndsize()
     mIconLabel->setFixedSize(height(), height());
 
     QSize lsize = mIconLabel->size();
-    mIconLabel->move(rect().right() - lsize.width(), (rect().bottom() + 1 - lsize.height()) / 2 );
+    mIconLabel->move(rect().right() - lsize.width(), (rect().bottom() + 1 - lsize.height()) / 2);
 
     if (mIconLabel->isVisible())
     {
@@ -78,4 +78,11 @@ void IconizedLineEdit::slotTextChanged(const QString &pText)
     {
         setIconVisible(!pText.isEmpty());
     }
+}
+//Событие изменения размера виджета
+void IconizedLineEdit::resizeEvent(QResizeEvent *pEvent)
+{
+    //Если изменение размера состоялось, обновить позицию и размер пиктограммы
+    updateIconPositionAndsize();
+    QWidget::resizeEvent(pEvent);
 }

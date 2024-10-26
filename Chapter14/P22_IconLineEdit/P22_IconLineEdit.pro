@@ -9,13 +9,11 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    iconizedlineedit.cpp \
     main.cpp \
-    mainwindow.cpp
+    iconlineedit.cpp
 
 HEADERS += \
-    iconizedlineedit.h \
-    mainwindow.h
+    iconlineedit.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -24,6 +22,3 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resource.qrc
-
-DISTFILES += \
-    Questions.png

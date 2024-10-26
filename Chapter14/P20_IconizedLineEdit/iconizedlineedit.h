@@ -30,6 +30,8 @@ private :
     void setIconVisible(bool pisVisible);
 private :
     IconVisibilityMode mIconVisibilityMode;
+protected:
+    void resizeEvent(QResizeEvent *pEvent) override;
 };
 
 #endif // ICONIZEDLINEEDIT_H
