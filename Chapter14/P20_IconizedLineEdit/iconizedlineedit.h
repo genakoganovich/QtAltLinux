@@ -34,7 +34,7 @@ private:
     void setIconVisible(bool pisVisible);
 protected:
     void resizeEvent(QResizeEvent *pEvent) override;
-    bool eventFilter(QObject *pobject, QEvent *pEvent);
+    bool eventFilter(QObject *pobject, QEvent *pEvent) override;
 };
 
 #endif // ICONIZEDLINEEDIT_H
