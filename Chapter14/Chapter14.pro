@@ -5,4 +5,5 @@ SUBDIRS += \
     P21_memory_leak \
     P22_IconLineEdit \
     P23_LedIndicator \
-	P24_UserPassword
+	P24_UserPassword \
+    P25_QValidatorExample
