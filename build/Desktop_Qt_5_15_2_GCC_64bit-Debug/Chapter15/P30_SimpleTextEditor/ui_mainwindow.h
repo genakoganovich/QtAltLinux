@@ -46,7 +46,7 @@ public:
     QMenu *menu_file;
     QMenu *menuEdit;
     QMenu *menuAbout;
-    QStatusBar *statusbar;
+    QStatusBar *statusBar;
     QToolBar *toolBar;
 
     void setupUi(QMainWindow *MainWindow)
@@ -104,9 +104,9 @@ public:
         menuAbout = new QMenu(menubar);
         menuAbout->setObjectName(QString::fromUtf8("menuAbout"));
         MainWindow->setMenuBar(menubar);
-        statusbar = new QStatusBar(MainWindow);
-        statusbar->setObjectName(QString::fromUtf8("statusbar"));
-        MainWindow->setStatusBar(statusbar);
+        statusBar = new QStatusBar(MainWindow);
+        statusBar->setObjectName(QString::fromUtf8("statusBar"));
+        MainWindow->setStatusBar(statusBar);
         toolBar = new QToolBar(MainWindow);
         toolBar->setObjectName(QString::fromUtf8("toolBar"));
         toolBar->setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
@@ -142,6 +142,8 @@ public:
         toolBar->addAction(actionCut);
         toolBar->addAction(actionCopy);
         toolBar->addAction(actionPaste);
+        toolBar->addSeparator();
+        toolBar->addAction(actionPreferences);
 
         retranslateUi(MainWindow);
         QObject::connect(actionExit, SIGNAL(triggered()), MainWindow, SLOT(close()));

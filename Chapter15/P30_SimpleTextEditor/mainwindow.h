@@ -23,8 +23,14 @@ private:
     Ui::MainWindow *ui;
     QString mFileName;
     SettingsDialog * mSettingsDialog;
+    static const QString SETTINGS_GROUP_VIEW;
+    static const QString SETTING_SHOW_TOOLBAR;
+    static const QString SETTING_SHOW_STATUS_BAR;
     void updateTitle();
     bool askForFileSaveAndclose();
+    void readSettings();
+    void writeSettings();
+    void applySettings();
 
 private slots:
     void slotNew();
@@ -32,5 +38,6 @@ private slots:
     void slotSave();
     void slotAboutProgram();
     void showPreferencesDialog();
+    void slotPreferencesAccepted();
 };
 #endif // MAINWINDOW_H
