@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "settingsdialog.h"
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QDir>
@@ -7,7 +8,7 @@
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::MainWindow), mSettingsDialog(new SettingsDialog(this))
 {
     ui->setupUi(this);
     ui->actionUndo->setShortcut(QKeySequence::Undo);
@@ -20,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->actionOpen->setShortcut(QKeySequence::Open);
     ui->actionSave->setShortcut(QKeySequence::Save);
     ui->actionExit->setShortcut(QKeySequence::Quit);
+    ui->actionPreferences->setShortcut(QKeySequence::Preferences);
+
 
     connect(ui->actionNew, SIGNAL(triggered()),this, SLOT(slotNew()), Qt::UniqueConnection);
     slotNew();
@@ -30,6 +33,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionSave, SIGNAL(triggered()), this, SLOT(slotSave()), Qt::UniqueConnection);
     connect(ui->actionAboutQt, SIGNAL(triggered()), qApp, SLOT(aboutQt()), Qt::UniqueConnection);
     connect(ui->actionAboutProgram, SIGNAL(triggered()), this, SLOT(slotAboutProgram()), Qt::UniqueConnection);
+    connect(ui->actionPreferences, SIGNAL(triggered()), this, SLOT(showPreferencesDialog()), Qt::UniqueConnection);
 
     ui->actionUndo->setIcon(QIcon(":/actions/undo"));
     ui->actionRedo->setIcon(QIcon(":/actions/redo"));
@@ -43,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->actionExit->setIcon(QIcon(":/actions/exit"));
     ui->actionAboutQt->setIcon(QIcon(":/actions/about"));
     ui->actionAboutProgram->setIcon(QIcon(":/actions/about_program"));
+    ui->actionPreferences->setIcon(QIcon(":/actions/preferences"));
 }
 
 MainWindow::~MainWindow()
@@ -178,5 +183,11 @@ void MainWindow::slotAboutProgram()
 {
     //Выводим диалоговое информационное окно с сообщением, куда подставляем версию и название
     //программы возвращаемых QApplication. Указываем — окно содержит заголовок "About".
-    QMessageBox::about(this, tr("About"), QString("%1 v.%2").arg(qApp->applicationName()).arg(qApp->applicationVersion()));
+    QMessageBox::about(this, tr("About"), QString("%1 v.%2").arg(qApp->applicationName(), qApp->applicationVersion()));
+
+}
+
+void MainWindow::showPreferencesDialog()
+{
+    mSettingsDialog->show();
 }

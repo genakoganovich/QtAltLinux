@@ -38,6 +38,7 @@ public:
     QAction *actionSelectAll;
     QAction *actionAboutProgram;
     QAction *actionAboutQt;
+    QAction *actionPreferences;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout;
     QPlainTextEdit *plainTextEdit;
@@ -81,6 +82,8 @@ public:
         actionAboutProgram->setObjectName(QString::fromUtf8("actionAboutProgram"));
         actionAboutQt = new QAction(MainWindow);
         actionAboutQt->setObjectName(QString::fromUtf8("actionAboutQt"));
+        actionPreferences = new QAction(MainWindow);
+        actionPreferences->setObjectName(QString::fromUtf8("actionPreferences"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);
@@ -115,6 +118,8 @@ public:
         menu_file->addAction(actionNew);
         menu_file->addAction(actionOpen);
         menu_file->addAction(actionSave);
+        menu_file->addSeparator();
+        menu_file->addAction(actionPreferences);
         menu_file->addSeparator();
         menu_file->addAction(actionExit);
         menuEdit->addAction(actionUndo);
@@ -170,6 +175,7 @@ public:
         actionSelectAll->setText(QCoreApplication::translate("MainWindow", "Select &all", nullptr));
         actionAboutProgram->setText(QCoreApplication::translate("MainWindow", "&About program", nullptr));
         actionAboutQt->setText(QCoreApplication::translate("MainWindow", "About &Qt", nullptr));
+        actionPreferences->setText(QCoreApplication::translate("MainWindow", "Preferences", nullptr));
         menu_file->setTitle(QCoreApplication::translate("MainWindow", "&File", nullptr));
         menuEdit->setTitle(QCoreApplication::translate("MainWindow", "Edit", nullptr));
         menuAbout->setTitle(QCoreApplication::translate("MainWindow", "About", nullptr));

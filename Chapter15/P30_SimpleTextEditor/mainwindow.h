@@ -10,6 +10,7 @@ class MainWindow;
 QT_END_NAMESPACE
 
 class QString;
+class SettingsDialog;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -21,6 +22,7 @@ public:
 private:
     Ui::MainWindow *ui;
     QString mFileName;
+    SettingsDialog * mSettingsDialog;
     void updateTitle();
     bool askForFileSaveAndclose();
 
@@ -29,5 +31,6 @@ private slots:
     void slotOpen();
     void slotSave();
     void slotAboutProgram();
+    void showPreferencesDialog();
 };
 #endif // MAINWINDOW_H
