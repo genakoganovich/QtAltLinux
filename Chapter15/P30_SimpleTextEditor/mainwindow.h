@@ -19,6 +19,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    static int getTIME_OUT();
+
 private:
     Ui::MainWindow *ui;
     QString mFileName;
@@ -26,6 +28,7 @@ private:
     static const QString SETTINGS_GROUP_VIEW;
     static const QString SETTING_SHOW_TOOLBAR;
     static const QString SETTING_SHOW_STATUS_BAR;
+    static const int TIME_OUT;
     void updateTitle();
     bool askForFileSaveAndclose();
     void readSettings();
@@ -39,5 +42,6 @@ private slots:
     void slotAboutProgram();
     void showPreferencesDialog();
     void slotPreferencesAccepted();
+    void slotStatusBarMessage();
 };
 #endif // MAINWINDOW_H

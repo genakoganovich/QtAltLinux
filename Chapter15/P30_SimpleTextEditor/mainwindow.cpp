@@ -6,11 +6,12 @@
 #include <QDir>
 #include <QFile>
 #include <QSettings>
-
+#include <QTextCursor>
 
 const QString MainWindow::SETTINGS_GROUP_VIEW = "ViewSettings";
 const QString MainWindow::SETTING_SHOW_TOOLBAR = "SettingsShowToolBar";
 const QString MainWindow::SETTING_SHOW_STATUS_BAR = "SettingsShowStatusBar";
+const int MainWindow::TIME_OUT = 1000;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -41,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionAboutProgram, SIGNAL(triggered()), this, SLOT(slotAboutProgram()), Qt::UniqueConnection);
     connect(ui->actionPreferences, SIGNAL(triggered()), this, SLOT(showPreferencesDialog()), Qt::UniqueConnection);
     connect(mSettingsDialog, SIGNAL(accepted()), this, SLOT(slotPreferencesAccepted()), Qt::UniqueConnection);
+    connect(ui->plainTextEdit, SIGNAL(cursorPositionChanged()), this, SLOT(slotStatusBarMessage()), Qt::UniqueConnection);
 
     ui->actionUndo->setIcon(QIcon(":/actions/undo"));
     ui->actionRedo->setIcon(QIcon(":/actions/redo"));
@@ -61,6 +63,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
 
 void MainWindow::updateTitle()
 {
@@ -241,4 +244,13 @@ void MainWindow::slotPreferencesAccepted()
     applySettings(); //Применить настройки
 }
 
+void MainWindow::slotStatusBarMessage()
+{
+    // Получаем текущую позицию курсора
+    QTextCursor cursor = ui->plainTextEdit->textCursor();
+    int line = cursor.blockNumber() + 1;       // Номер строки (начиная с 1)
+    int column = cursor.columnNumber() + 1;    // Номер столбца (начиная с 1)
 
+    // Обновляем текст метки
+    ui->statusBar->showMessage(QString("Позиция курсора: (%1, %2)").arg(line).arg(column), TIME_OUT);
+}
