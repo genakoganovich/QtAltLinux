@@ -11,6 +11,9 @@
 const QString MainWindow::SETTINGS_GROUP_VIEW = "ViewSettings";
 const QString MainWindow::SETTING_SHOW_TOOLBAR = "SettingsShowToolBar";
 const QString MainWindow::SETTING_SHOW_STATUS_BAR = "SettingsShowStatusBar";
+const QString MainWindow::SETTING_SAVE_GEOMETRY = "SettingsSaveGeometry";
+const QString MainWindow::SETTING_GEOMETRY = "SettingsGeometry";
+
 const int MainWindow::TIME_OUT = 1000;
 
 MainWindow::MainWindow(QWidget *parent)
@@ -57,6 +60,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->actionAboutQt->setIcon(QIcon(":/actions/about"));
     ui->actionAboutProgram->setIcon(QIcon(":/actions/about_program"));
     ui->actionPreferences->setIcon(QIcon(":/actions/preferences"));
+
+    // Восстановите геометрию при запуске
+    restoreGeometrySettings();
 }
 
 MainWindow::~MainWindow()
@@ -114,6 +120,8 @@ void MainWindow::readSettings()
     mSettingsDialog->setShowToolBar(lShowToolBar);
     bool lShowStatusBar = lsettings.value(SETTING_SHOW_STATUS_BAR, true).toBool();
     mSettingsDialog->setShowStatusBar(lShowStatusBar);
+    bool lSaveGeometry = lsettings.value(SETTING_SAVE_GEOMETRY, true).toBool();
+    mSettingsDialog->setSaveGeometry(lSaveGeometry);
 }
 
 void MainWindow::writeSettings()
@@ -127,6 +135,7 @@ void MainWindow::writeSettings()
     //Записываем настройки
     lSettings.setValue(SETTING_SHOW_TOOLBAR, mSettingsDialog->isShowToolBar());
     lSettings.setValue(SETTING_SHOW_STATUS_BAR, mSettingsDialog->isShowStatusBar());
+    lSettings.setValue(SETTING_SAVE_GEOMETRY, mSettingsDialog->isSaveGeometry());
 }
 
 void MainWindow::applySettings()
@@ -134,6 +143,17 @@ void MainWindow::applySettings()
     //Читаем настройки установленые в диалоге и применяем их
     ui->toolBar->setVisible(mSettingsDialog->isShowToolBar());
     ui->statusBar->setVisible(mSettingsDialog->isShowStatusBar());
+}
+
+void MainWindow::restoreGeometrySettings()
+{
+    QSettings lSettings(QSettings::NativeFormat, QSettings::UserScope, " ", qApp->applicationName());
+    //Открываем группу настроек
+    lSettings.beginGroup(SETTINGS_GROUP_VIEW);
+    if(lSettings.value(SETTING_SAVE_GEOMETRY, true).toBool())
+    {
+        restoreGeometry(lSettings.value(SETTING_GEOMETRY).toByteArray());
+    }
 }
 
 void MainWindow::slotNew()
@@ -253,4 +273,16 @@ void MainWindow::slotStatusBarMessage()
 
     // Обновляем текст метки
     ui->statusBar->showMessage(QString("Позиция курсора: (%1, %2)").arg(line).arg(column), TIME_OUT);
+}
+
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    QSettings lSettings(QSettings::NativeFormat, QSettings::UserScope, " ", qApp->applicationName());
+    //Открываем группу настроек
+    lSettings.beginGroup(SETTINGS_GROUP_VIEW);
+    if(lSettings.value(SETTING_SAVE_GEOMETRY, true).toBool())
+    {
+        lSettings.setValue(SETTING_GEOMETRY, saveGeometry());
+    }
+    QMainWindow::closeEvent(event);
 }

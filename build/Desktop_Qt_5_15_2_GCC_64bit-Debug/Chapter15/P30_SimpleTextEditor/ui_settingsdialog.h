@@ -26,6 +26,7 @@ public:
     QVBoxLayout *verticalLayout;
     QGroupBox *groupBox;
     QHBoxLayout *horizontalLayout;
+    QCheckBox *saveGeometryCheckBox;
     QCheckBox *showToolbarCheckBox;
     QCheckBox *showStatusBarCheckBox;
     QDialogButtonBox *buttonBox;
@@ -34,7 +35,7 @@ public:
     {
         if (SettingsDialog->objectName().isEmpty())
             SettingsDialog->setObjectName(QString::fromUtf8("SettingsDialog"));
-        SettingsDialog->resize(400, 150);
+        SettingsDialog->resize(1053, 150);
         SettingsDialog->setModal(true);
         verticalLayout = new QVBoxLayout(SettingsDialog);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
@@ -42,6 +43,11 @@ public:
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
         horizontalLayout = new QHBoxLayout(groupBox);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        saveGeometryCheckBox = new QCheckBox(groupBox);
+        saveGeometryCheckBox->setObjectName(QString::fromUtf8("saveGeometryCheckBox"));
+
+        horizontalLayout->addWidget(saveGeometryCheckBox);
+
         showToolbarCheckBox = new QCheckBox(groupBox);
         showToolbarCheckBox->setObjectName(QString::fromUtf8("showToolbarCheckBox"));
 
@@ -74,6 +80,7 @@ public:
     {
         SettingsDialog->setWindowTitle(QCoreApplication::translate("SettingsDialog", "Settings", nullptr));
         groupBox->setTitle(QCoreApplication::translate("SettingsDialog", "View Settings", nullptr));
+        saveGeometryCheckBox->setText(QCoreApplication::translate("SettingsDialog", "Save Geometry", nullptr));
         showToolbarCheckBox->setText(QCoreApplication::translate("SettingsDialog", "Show Toolbar", nullptr));
         showStatusBarCheckBox->setText(QCoreApplication::translate("SettingsDialog", "Show Status Bar", nullptr));
     } // retranslateUi

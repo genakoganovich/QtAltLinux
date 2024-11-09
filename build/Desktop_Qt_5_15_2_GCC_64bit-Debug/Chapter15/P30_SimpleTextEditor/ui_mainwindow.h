@@ -146,7 +146,6 @@ public:
         toolBar->addAction(actionPreferences);
 
         retranslateUi(MainWindow);
-        QObject::connect(actionExit, SIGNAL(triggered()), MainWindow, SLOT(close()));
         QObject::connect(plainTextEdit, SIGNAL(copyAvailable(bool)), actionCopy, SLOT(setEnabled(bool)));
         QObject::connect(plainTextEdit, SIGNAL(copyAvailable(bool)), actionCut, SLOT(setEnabled(bool)));
         QObject::connect(plainTextEdit, SIGNAL(undoAvailable(bool)), actionUndo, SLOT(setEnabled(bool)));
@@ -158,6 +157,7 @@ public:
         QObject::connect(actionRedo, SIGNAL(triggered()), plainTextEdit, SLOT(redo()));
         QObject::connect(actionCut, SIGNAL(triggered()), plainTextEdit, SLOT(cut()));
         QObject::connect(actionCopy, SIGNAL(triggered()), plainTextEdit, SLOT(copy()));
+        QObject::connect(actionExit, SIGNAL(triggered()), MainWindow, SLOT(close()));
 
         QMetaObject::connectSlotsByName(MainWindow);
     } // setupUi

@@ -18,6 +18,8 @@ public:
     void setShowToolBar(bool pShow);
     bool isShowStatusBar() const;
     void setShowStatusBar(bool pShow);
+    bool isSaveGeometry() const;
+    void setSaveGeometry(bool pSave);
 private:
     Ui::SettingsDialog *ui;
 };

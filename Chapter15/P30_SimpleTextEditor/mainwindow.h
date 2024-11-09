@@ -28,12 +28,15 @@ private:
     static const QString SETTINGS_GROUP_VIEW;
     static const QString SETTING_SHOW_TOOLBAR;
     static const QString SETTING_SHOW_STATUS_BAR;
+    static const QString SETTING_SAVE_GEOMETRY;
+    static const QString SETTING_GEOMETRY;
     static const int TIME_OUT;
     void updateTitle();
     bool askForFileSaveAndclose();
     void readSettings();
     void writeSettings();
     void applySettings();
+    void restoreGeometrySettings();
 
 private slots:
     void slotNew();
@@ -43,5 +46,8 @@ private slots:
     void showPreferencesDialog();
     void slotPreferencesAccepted();
     void slotStatusBarMessage();
+
+protected:
+    void closeEvent(QCloseEvent *event) override;
 };
 #endif // MAINWINDOW_H

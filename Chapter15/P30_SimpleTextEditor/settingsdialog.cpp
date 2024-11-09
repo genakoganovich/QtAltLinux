@@ -33,5 +33,15 @@ void SettingsDialog::setShowStatusBar(bool pShow)
     ui->showStatusBarCheckBox->setChecked(pShow);
 }
 
+bool SettingsDialog::isSaveGeometry() const
+{
+    return ui->saveGeometryCheckBox->isChecked();
+}
+
+void SettingsDialog::setSaveGeometry(bool pSave)
+{
+    ui->saveGeometryCheckBox->setChecked(pSave);
+}
+
 
 
